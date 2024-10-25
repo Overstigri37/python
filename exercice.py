@@ -30,7 +30,7 @@ contenu = os.listdir(dossier)
 for fichier in os.listdir(dossier):
     chemin = os.path.join(dossier, fichier)
 
-    #Vérifie que c'est un bien un fichier avec les bonnes extensions.
+    #Vérifie que c'est bien un fichier avec les bonnes extensions.
     if os.path.isfile(chemin) and os.path.splitext(fichier)[1].lower() in extensions:
         infos = os.stat(chemin)
 
