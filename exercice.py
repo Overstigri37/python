@@ -2,13 +2,14 @@ import os, time, shutil, random
 from datetime import datetime
 
 #Chemin vers le dossier sélectionné.
-dossier = r'C:\Users\peran\Music\Annaïg enfant'
-chemin_dest = r'C:\Users\peran\Music'
+dossier = r'C:\Users\peran\OneDrive\Documents\TEST\Annaïg enfant'
+chemin_dest = r'C:\Users\peran\OneDrive\Documents\TEST'
 
 nombre = random.randint(1, 99)
 nom_dossier_source = os.path.basename(dossier)
 nom_dossier_apres = f"{nom_dossier_source} - Copie {nombre}"
 chemin_complet_dest = os.path.join(chemin_dest, nom_dossier_apres)
+print(f"chemin_complet_dest -> {chemin_complet_dest}")
 #Crée une copie du dossier sélectionné, au cas où.
 try:
     shutil.copytree(dossier, chemin_complet_dest, dirs_exist_ok=True, copy_function=shutil.copy2)
@@ -45,8 +46,8 @@ for fichier in os.listdir(dossier):
 
         #Récupère la date de création du fichier pour pouvoir créer le dossier.
         nom_dossier = date_creation
-        chemin_crea_dossier = os.path.join(dossier,  nom_dossier)
-        print(chemin_crea_dossier)
+        chemin_crea_dossier = os.path.join(chemin_complet_dest,  nom_dossier)
+        print(f"chemin_crea_dossier -> {chemin_crea_dossier}")
     else:
         print(f"Le fichier {fichier} n'a pas les bonnes extensions, il est donc ignoré.")
 
@@ -62,15 +63,15 @@ for fichier in os.listdir(dossier):
         except OSError as e:
             print(f"Erreur : {e}")
                 
-        destination = chemin_crea_dossier
-        fichier = rf'C:\Users\peran\Pictures\Screenshots - Copie\{fichier}'
+        destination = rf'{chemin_dest}\{nom_dossier_apres}'
+        fichier = rf'{chemin_dest}\{nom_dossier_apres}\{fichier}'
+        print(f"fichier -> {fichier}")
         nouveau_dossier = os.path.join(destination, os.path.basename(dossier))
         try:
-            shutil.move(fichier, nouveau_dossier)
+            shutil.move(fichier, chemin_crea_dossier)
             print(f"Fichier {fichier} déplacé avec succès vers : {nouveau_dossier}")
         except FileNotFoundError:
-            print()
-            #print(f"Le fichier ou le dossier {fichier} destination n'existe pas.")
+            print(f"Le fichier ou le dossier {fichier} destination n'existe pas.")
         except PermissionError:
             print(f"Permission refusée pour le fichier {fichier}.")
         except Exception as e:
